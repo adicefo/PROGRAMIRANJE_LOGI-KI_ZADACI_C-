@@ -3,7 +3,8 @@
  Competative programming problems used for practicing logic
  
 <br/>
-## Instructions:
+
+## Instructions
 
 <ul>
 <li> clone the repo from github </li>
