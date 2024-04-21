@@ -1,8 +1,9 @@
 # PROGRAMIRANJE_LOGICKI_ZADACI
 
-### Competative programming problems used for practicing logic
-
-## Instructions
+ Competative programming problems used for practicing logic
+ 
+<br/>
+## Instructions:
 
 <ul>
 <li> clone the repo from github </li>
