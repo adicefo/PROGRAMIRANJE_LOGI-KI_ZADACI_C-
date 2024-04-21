@@ -1,0 +1,55 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+
+using namespace std;
+
+/*
+
+Napravite funkciju “Polinom” koja kao parametar prima vektor realnih brojeva koji predstavljaju
+koeficijente nekog polinoma (prvi element vektora je slobodni član, drugi element je član uz prvi
+stepen promjenljive polinoma, i tako dalje ka rastućim stepenima promjenljive polinoma), a koja kao
+rezultat vraća funkciju koja računa vrijednost tog polinoma u tački koja se zadaje kao argument te
+funkcije. Na primjer, isječak programa
+auto poli = Polinom({2, 3, 0, −1, 4});
+std::cout << poli(5);
+treba da ispiše broj 2392, jer je 2 + 3 ∙ 5 + 0 ∙ 5 − 1 ∙ 5 + 4 ∙ 5 = 2392
+
+
+
+*/
+auto Polinom(vector<float>koeficijentiPolinoma)
+{
+	return [koeficijentiPolinoma](int vrijednostPromjenljive)->int
+	{
+		int vrijednostPolinoma = 0;
+		for (size_t i = 0; i < koeficijentiPolinoma.size(); i++)
+			vrijednostPolinoma += koeficijentiPolinoma[i] * pow(vrijednostPromjenljive, i);
+		return vrijednostPolinoma;
+	};
+}
+
+void IspisiKoeficijente(vector<float>elem)
+{
+	cout << "Koeficijenti polinoma su: ";
+	for (size_t i = 0; i < elem.size(); i++)
+		cout << elem[i] << "  ";
+	
+}
+
+
+int main()
+{
+	vector<float>koeficijentiPolinoma;
+	for (int i = 0; i < 5; i++)
+		koeficijentiPolinoma.push_back(rand()%10+1);
+	IspisiKoeficijente(koeficijentiPolinoma);
+	auto polinom = Polinom(koeficijentiPolinoma);
+	cout << endl<<"Vrijednost polinoma u zadanoj tacki iznosi: "<<polinom(5);
+
+	
+
+	cin.get();
+	return 0;
+}
+

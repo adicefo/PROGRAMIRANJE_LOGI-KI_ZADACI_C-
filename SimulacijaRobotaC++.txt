@@ -1,0 +1,112 @@
+#include<iostream>
+using namespace std;
+
+/*
+. Položaj zamišljenog robota koji može da se kreće kroz koordinatni sistem sa cjelobrojnim
+koordinatama opisuje se pomoću tri promjenljive “x”, “y” i “orijentacija”. Promjenljive “x” i “y” su
+tipa “int” i one čuvaju odnosno koordinatu pozicije na kojoj se robot trenutno nalazi.
+Promjenljiva “orijentacija” je tipa “Pravci”, koji predstavlja pobrojani tip definiran kao
+enum Pravci {Sjever, Istok, Jug, Zapad};
+Ova promjenljiva sadrži informaciju o pravcu u kojem robot trenutno gleda. Potrebno je napraviti
+program koji korisniku nudi sljedeće opcije za upravljanje robotom: L − Nalijevo; D − Nadesno;
+I − Idi; K − Kraj. Opcije L odnosno D obrću robota nalijevo odnosno nadesno za 90°. Opcija I treba
+da pita korisnika za broj koraka, a nakon toga pomjera robota zadani broj koraka u pravcu u kojem
+robot trenutno gleda. Opcija K završava program. Sve druge opcije su ilegalne, i trebaju dovesti do
+prijave greške i ponovnog izbora opcije. Na početku rada, robot se nalazi na poziciji (0,0) i gleda na
+sjever. Dijalog između programa i korisnika mogao bi izgledati poput sljedećeg:*/
+
+
+enum Pravci{ Sjever,Zapad,Istok,Jug};
+const char* ispis[]{ "sjever","zapad","istok","jug" };
+
+int main()
+{
+	int x=0, y = 0, brojKoraka;
+	Pravci pravac=Pravci::Sjever;
+	char znak;
+
+	do
+	{
+		while (cout << "Unesite komandu L-lijevo,D-desno,I-idi-K-kraj: ", cin >> znak, znak != 'L' && znak != 'D' && znak != 'I' && znak != 'K')
+			cout << "Pogresna komanda\n";
+
+		
+		if (znak == 'K')
+			break;
+		if (znak == 'L')
+		{
+			switch (pravac)
+			{
+			case Sjever:
+				pravac = Zapad;
+				break;
+			case Zapad:
+				pravac = Jug;
+				break;
+			case Istok:
+				pravac = Sjever;
+				break;
+			case Jug:
+				pravac = Istok;
+				break;
+			default:
+				break;
+			}
+		}
+		if (znak == 'D')
+		{
+			switch (pravac)
+			{
+			case Sjever:
+				pravac = Istok;
+				break;
+			case Zapad:
+				pravac = Sjever;
+				break;
+			case Istok:
+				pravac = Jug;
+				break;
+			case Jug:
+				pravac = Zapad;
+				break;
+			default:
+				break;
+			}
+		}
+		if (znak == 'I')
+		{
+			do
+			{
+				cout << "Unesite broj koraka: ";
+				cin >> brojKoraka;
+			} while (brojKoraka<1);
+
+			switch (pravac)
+			{
+			case Sjever:
+				y += brojKoraka;
+				break;
+			case Zapad:
+				x -= brojKoraka;
+				break;
+			case Istok:
+				x += brojKoraka;
+				break;
+			case Jug:
+				y -= brojKoraka;
+				break;
+			default:
+				break;
+			}
+		}
+
+
+		cout << "Robot se nalazi na poziciji (" << x << "," << y << ") i gleda na " << ispis[pravac] << "\n";
+
+	} while (1);
+
+	cout << "Dovidjenja!" << endl;
+    
+	cin.get();
+	return 0;
+}

@@ -1,0 +1,61 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+/*Julius Caesar protected his confidential information by encrypting it using a cipher.
+Caesar's cipher (check Resources tab for more info) shifts each letter by a number of letters.
+If the shift takes you past the end of the alphabet, just rotate back to the front of the alphabet.
+In the case of a rotation by 3, w, x, y and z would map to z, a, b and c.
+Create a function that takes a string s (text to be encrypted) and an integer k (the rotation factor).
+It should return an encrypted string.*/
+
+string CaesharEncryptMethod(string, int);
+bool Veliko(char);
+bool Malo(char);
+
+
+int main()
+{
+	string rijec;
+	int brojRotacija;
+	cout << "Unesite string: ";
+	getline(cin, rijec);
+	do
+	{
+		cout << "\nUnesite broj rotacija: ";
+		cin >> brojRotacija;
+	} while (brojRotacija < 1);
+
+	cout << "Vasa rijec: " << rijec << " nakon Caeshar enkripting metode izgleda: "
+		<< CaesharEncryptMethod(rijec, brojRotacija) << endl;
+
+
+	cin.get();
+	return 0;
+}
+
+string CaesharEncryptMethod(string rijec, int brojRotacija)
+{
+	string nova;
+	for (size_t i = 0; i < rijec.size(); i++)
+	{
+		if (brojRotacija + rijec[i] > 90 && Veliko(rijec[i]))
+			nova.push_back(char(64 + (brojRotacija - (90 - rijec[i]))));//64 racuna se kao '0'
+		else if (brojRotacija + rijec[i] > 122 && Malo(rijec[i]))
+			nova.push_back(char(96 + (brojRotacija - (122 - rijec[i]))));//96 krecem od '0'
+		else if (Veliko(rijec[i]) || Malo(rijec[i]))				  //provjera je li uopste slovo
+			nova.push_back(char(rijec[i] + brojRotacija));
+		else
+			nova.push_back(rijec[i]);
+
+	}
+	return nova;
+}
+bool Veliko(char slovo)
+{
+	return slovo >= 65 && slovo <= 90;
+}
+bool Malo(char slovo)
+{
+	return slovo >= 97 && slovo <= 122;
+}

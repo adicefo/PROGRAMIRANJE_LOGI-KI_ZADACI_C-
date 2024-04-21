@@ -1,0 +1,62 @@
+#include<iostream>
+using namespace std;
+
+/*
+Napišite funkciju “DaLiJePalindrom” koja za nul-terminirani niz znakova koji joj je proslijeđen kao
+parametar ispituje da li predstavlja palindrom ili nije, i kao rezultat vraća odgovarajuću logičku
+vrijednost “true” ili “false” (vodite računa da je parametar klasični nul-terminirani niz znakova, a
+ne dinamički string, odnosno objekat tipa “string”). Pri tome, funkciju treba biti realizirana
+isključivo korištenjem pokazivačke aritmetike. Drugim riječima, nije dozvoljeno indeksiranje, niti
+njegovo trivijalno simuliranje (tj. upotreba konstrukcija poput “*(p + i)” umjesto “p[i]”). Također
+nije dozvoljena upotreba nikakvih pomoćnih struktura podataka, poput dopunskih nizova ili
+vektora. Napišite i kratki testni program (“main” funkciju) u kojem ćete testirati napisanu funkciju.
+Napomena: Pod palindromima smatramo riječi ili rečenice koje se isto čitaju sa obe strane (npr.
+“kapak”). Prilikom ispitivanja treba ignorirati eventualne razmake, interpunkcijske znake i razliku
+između velikih i malih slova, tako da rečenica “Ana voli Milovana” treba da bude prepoznata kao
+palindrom, iako bukvalno pročitana sa suprotnog kraja glasi “anavoliM ilov Ana”.
+
+
+*/
+
+bool DaLiJePalindrom(const char*,int);
+
+
+int main()
+{
+	char* uneseniTekst = new char[100];
+	cout << "Unesite tekst: ";
+	cin.getline(uneseniTekst,100);
+	if (DaLiJePalindrom(uneseniTekst,strlen(uneseniTekst)))
+		cout << "Tekst je palindrom!\n";
+	else
+		cout << "Tekst nije palindrom!\n";
+
+	delete[]uneseniTekst;
+
+	cin.get();
+	return 0;
+}
+
+bool DaLiJePalindrom(const char* tekst,int vel)
+{
+	for (int i = 0, j=vel-1; i!=j; i++,j--)
+	{
+		//da  ne racuna razmak
+		if (*(tekst + i) == ' ')
+		{
+			j++;
+			continue;
+		}
+		//da ne racuna interpunkcijske znakove
+		if (*(tekst + j) == ' '||*(tekst+j)=='.'||*(tekst+j)=='?' || *(tekst + j) == '!')
+		{
+			i--;
+			continue;
+		}
+
+		//ukoliko su u pitanju razlicita slova vraca false
+		if (*(tekst + i)!=(*(tekst + j))&&(abs((int)*(tekst + i) - (int)*(tekst + j)) != 32))
+			return false;
+	}
+	return true;
+}

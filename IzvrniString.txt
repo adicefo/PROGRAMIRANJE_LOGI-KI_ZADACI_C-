@@ -1,0 +1,48 @@
+#include<iostream>
+#include<algorithm>
+#include<iterator>
+#include<string>
+using namespace std;
+
+void IzvrniString(string&);
+
+/*
+Napišite funkciju “IzvrniString” sa jednim parametrom tipa “string”. Funkcija treba da
+ispremješta elemente stringa tako da prvi znak postane posljednji, a posljednji prvi. Na primjer,
+ukoliko se u glavnom programu izvrši sekvenca naredbi
+std::string s("Ovo je neki tekst...");
+Izvrni(s);
+std::cout << s;
+ispis na ekranu treba da bude “...tsket iken ej ovO”. Funkcija treba da bude realizirana tako
+da vrši premještanje “u mjestu”, odnosno da ne koristi nikakav pomoćni string osim stringa koji je
+prenesen kao parametar (uputa: razmijenite prvi znak sa posljednjim, drugi sa pretposljednjim, itd.).
+Napišite i kratki glavni program u kojoj ćete demonstrirati napisanu funkciju na rečenici koja se
+unosi sa tastature. Oprez: funkcija izvrni ne smije sama po sebi ništa da ispisuje na ekran. Njeno
+dejstvo treba samo da bude izmjena poretka znakova u stringu, koje će kasnije na ekran ispisati
+neko drugi (npr. “main” funkcija).
+
+
+
+*/
+int main()
+{ 
+	string str;
+	cout << "Unesite neki string...";
+	cin >> str;
+	IzvrniString(str);
+	cout << str;
+
+	cin.get();
+	return 0;
+}
+
+void IzvrniString(string& str)
+{
+	char temp;
+	for (size_t i = 0; i < str.length()/2; i++)
+	{
+		temp = str[i];
+		str[i] = str[str.length() - (i + 1)];
+		str[str.length() - (i + 1)] = temp;
+	}
+}

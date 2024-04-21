@@ -1,0 +1,54 @@
+#include<iostream>
+#include<vector>
+#include<string>
+using namespace std;
+
+/*Write a function to replace all instances of character c1 with character c2 and vice versa.
+Example: doubleSwap("aabbccc", 'a', 'b') ➞ "bbaaccc"
+*/
+
+bool Check(string s, char c1, char c2)
+{
+	bool prvi = false, drugi = false;
+	for (size_t i = 0; i < s.size(); i++)
+	{
+		if (s[i] == c1)
+			prvi = true;
+		if (s[i] == c2)
+			drugi = true;
+	}
+	return prvi && drugi;
+}
+void doubleSwap(string& s, char c1, char c2)
+{
+	if (!Check(s, c1, c2))
+		return;
+	for (size_t i = 0; i < s.size(); i++)
+	{
+		if (s[i] == c1)
+		{
+			s[i] = c2;
+			continue;
+		}
+		if (s[i] == c2)
+			s[i] = c1;
+	}
+
+}
+
+int main()
+{
+	string temp;
+	char a, b;
+	cout << "Unesite string: ";
+	getline(cin, temp);
+
+	cout << "\nUnesite oba karaktera: ";
+	cin >> a >> b;
+	doubleSwap(temp, a, b);
+	cout << "Swaped: " << temp << endl;
+
+
+	cin.get();
+	return 0;
+}

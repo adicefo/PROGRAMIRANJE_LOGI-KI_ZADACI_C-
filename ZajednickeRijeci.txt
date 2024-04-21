@@ -1,0 +1,54 @@
+#include<iostream>
+using namespace std;
+
+/*
+Create a function that returns the number of characters shared between two words.
+*/
+
+int SharedLetters(string&, string&);
+bool Contains(char, string&);
+
+
+int main()
+{
+	string s1, s2;
+	cout << "Unesite rijec: ";
+	cin >> s1;
+	cout << "\nUnesite drugu rijec: ";
+	cin >> s2;
+	cout << "\nBroj zajednickih slova u ove dvije rijeci je: " << SharedLetters(s1, s2)<<endl;
+
+
+	cin.get();
+	return 0;
+}
+
+int SharedLetters(string& s1, string& s2)
+{
+	int counter = 0;
+	int vel;
+	if (s1.length() != s2.length())
+	{
+		if (s1.length() > s2.length())
+			 vel = s2.length();
+		else
+			 vel = s1.length();
+	}
+	else
+		 vel = s2.length();
+
+	for (int i = 0; i < vel; i++)
+		if (Contains(s1[i],s2))
+			counter++;
+	return counter;
+
+}
+
+bool Contains(char letter, string& s)
+{
+	for (size_t i = 0; i < s.size(); i++)
+		if (letter == s[i])
+			return true;
+	return false;
+	
+}

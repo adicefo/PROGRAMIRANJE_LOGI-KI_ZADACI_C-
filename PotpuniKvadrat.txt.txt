@@ -1,0 +1,63 @@
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+const char* crt = "\n------------------------------------------------------------------------------------------------\n";
+
+vector<int>Fja(int);
+bool IsPotpuniKvadrat(int);
+
+/*
+Napišite funkciju koja kao parametar prima jedan prirodan broj, a kao rezultat vraća vektor čiji su
+elementi svi prirodni brojevi koji su potpuni kvadrati 
+(tj. koji se mogu napisati kao kvadrat nekog drugog
+prirodnog broja), a koji su manji od broja zadanog kao parametar
+Napisanu funkciju demonstrirajte u
+glavnom programu u kojem se sa tastature unosi prirodan broj n i
+koji nakon toga poziva napisanu
+funkciju sa ciljem generiranja vektora čiji su elementi svi potpuni 
+kvadrati manji od n, čije elemente na
+kraju treba ispisati na ekran (međusobno razdvojene razmakom).*/
+int main()
+{
+	int broj;
+	while (cout << "Unesite prirodan broj:", cin >> broj, broj < 1)
+		cout << "Pogresan unos \n";
+	cout << crt<<"Brojevi koji su potpuni kvadrati,a manji su od unesenog broj su... ";
+	vector<int>temp = Fja(broj);
+	for (size_t i = 0; i < temp.size(); i++)
+	{
+		cout << temp.at(i)<<"  ";
+	}
+	cout << crt;
+
+
+
+	cin.get();
+	return 0;
+}
+
+vector<int>Fja(int broj)
+{
+	vector<int>temp;
+	for (size_t i = 1; i < broj; i++)
+	{
+		if (IsPotpuniKvadrat(i))
+			temp.push_back(i);
+	}
+	return temp;
+}
+
+bool IsPotpuniKvadrat(int broj)
+{
+	if (broj == 1)
+		return true;
+	for (int i = 2; i <= broj/2; i++)
+	{
+		if (i * i == broj)
+			return true;
+	}
+	return false;
+	
+}

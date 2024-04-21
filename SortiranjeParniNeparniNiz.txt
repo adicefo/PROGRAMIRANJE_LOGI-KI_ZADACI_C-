@@ -1,0 +1,88 @@
+#include<iostream>
+#include<ctime>
+#include<vector>
+/*
+
+Napišite funkciju koja ima dva parametra, od kojih je prvi niz cijelih brojeva, a drugi broj elemenata
+u nizu. Funkcija treba da kreira vektor cijelih brojeva koji sadrži iste elemente kao i zadani niz, ali
+tako da prvo idu parni, a zatim neparni brojevi 
+, i da vrati tako popunjeni vektor kao rezultat. Napisanu funkciju demonstrirajte u
+glavnom programu koji prvo sa tastature unosi elemente niza kapaciteta 10 elemenata. Nakon toga,
+program poziva napisanu funkciju sa ciljem generiranja vektora čiji su elementi u poretku kako je
+gore opisano u odnosu na elemente unesenog niza. Na kraju, program ispisuje elemente generiranog
+vektora na ekran (međusobno razdvojene razmakom).
+*/
+using namespace std;
+
+void GenerisanjeElemenataUNiz(int[], int);
+void IspisNiza(int[], int);
+void SortirajNiz(int[], int);
+vector<int>Fja(int[],int);
+
+
+int main()
+{
+	const int vel = 10;
+	int niz[vel];
+
+
+	GenerisanjeElemenataUNiz(niz, vel);
+
+	cout << "Niz prije sortiranja: ";
+	IspisNiza(niz, vel);
+
+	vector<int>_afterSortVector = Fja(niz, vel);
+	cout << "\nElementi niza nakon sortiranja: ";
+	for (size_t i = 0; i < _afterSortVector.size(); i++)
+		cout << _afterSortVector[i] << " ";
+	
+
+
+	cin.get();
+	return 0;
+
+}
+
+void GenerisanjeElemenataUNiz(int niz[], int vel)
+{
+	srand(time(NULL));
+	for (int i = 0; i < vel; i++)
+		niz[i] = rand() % 10 + 1;
+
+}
+
+void IspisNiza(int niz[], int vel)
+{
+	for (int i = 0; i < vel; i++)
+		cout << niz[i] << " ";
+}
+
+void SortirajNiz(int niz[], int vel)
+{
+	int left = 0;
+	int right = vel - 1;
+	int temp;
+	while (left < right)
+	{
+		while (niz[left] % 2 == 0 && left < right)
+			left++;
+		while (niz[right] % 2 != 0 && left < right)
+			right--;
+		if (left < right)
+		{
+			temp = niz[left];
+			niz[left] = niz[right];
+			niz[right] = temp;
+		}
+		left++;
+		right--;
+	}
+}
+vector<int>Fja(int niz[], int vel)
+{
+	vector<int>vekt;
+	SortirajNiz(niz, vel);
+	for (int i = 0; i < vel; i++)
+		vekt.push_back(niz[i]);
+	return vekt;
+}

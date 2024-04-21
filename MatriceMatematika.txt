@@ -1,0 +1,119 @@
+#include <iostream>
+#include <vector>
+#include <ctime>
+#include <algorithm>
+
+using namespace std;
+
+//program za racunanje adjungovane matrice 3x3
+
+
+
+const int x = 3, y = 3;
+
+
+void GenerisiElemente(int matrica[][y])
+{
+    srand(time(NULL));
+    for (int i = 0; i < x; i++)
+    {
+        for (int j = 0; j < y; j++)
+        {
+            matrica[i][j] = rand() % 3;
+        }
+    }
+}
+void Ispisi(int matrica[][y], string param = " ")
+{
+    cout << param << "\n";
+    cout << "-------------------------\n";
+    for (int i = 0; i < x; i++)
+    {
+        for (int j = 0; j < y; j++)
+        {
+            cout << "| " << matrica[i][j] << " |\t";
+        }
+        cout << "\n-------------------------\n";
+    }
+}
+
+void MakeCopy(int m1[][y], int m2[][y])
+{
+    for (int i = 0; i < x; i++)
+    {
+        for (int j = 0; j < y; j++)
+        {
+            m2[i][j] = m1[i][j];
+        }
+    }
+}
+
+void MakeTransponovana(int matrica[][y])
+{
+    if (x != y) //ako matrica nije kvadratna
+        return;
+    for (int i = 0; i < x; i++)
+        for (int j = i; j < y; j++)
+            swap(matrica[i][j], matrica[j][i]);
+    Ispisi(matrica, "Transponovana----------->");
+}
+
+int GetValueOfDeterminant(vector<int> tempVctr)
+{
+    return tempVctr[0] * tempVctr[3] - tempVctr[1] * tempVctr[2];
+}
+
+int GetAlgKomplement(int kopija[][y], int i1, int i2)
+{
+    vector<int> tempVctr;
+    for (int i = 0; i < x; i++)
+    {
+        if (i1 == i)
+            continue;
+        for (int j = 0; j < y; j++)
+        {
+            if (i2 == j)
+                continue;
+            tempVctr.push_back(kopija[i][j]);
+        }
+    }
+    if ((i1 + i2) % 2 != 0) //ako je -1^|neparni eksponent|
+        return (GetValueOfDeterminant(tempVctr) * (-1));
+    else
+        return GetValueOfDeterminant(tempVctr);
+}
+int GetDijagonalni(int[][y] m, int i1, int i2)
+{
+    if (i1 > 0 && i1 < x && i2 > 0 && i2 < y)
+        return m[i2][i1];
+    else
+        throw exception("Nevalidni indeks");
+}
+void MakeAdjungovana(int matrica[][y])
+{
+    if (x != y && y != 3 && y != 2) //samo 3x3 matrice
+        return;
+    MakeTransponovana(matrica);
+    int kopija[x][y];
+    MakeCopy(matrica, kopija); //da ne bi doslo do mjesanja jer je matrica pseudo-referent parametar
+    for (int i = 0; i < x; i++)
+    {
+        for (int j = 0; j < y; j++)
+        {
+      	     matrica[i][j] = GetAlgKomplement(kopija, i, j);
+        }
+    }
+    Ispisi(matrica, "Adjungovana------->");
+}
+
+int main()
+{
+    int matrica[x][y];
+    GenerisiElemente(matrica);
+    Ispisi(matrica);
+    //MakeTransponovana(matrica);
+    MakeAdjungovana(matrica);
+
+    cin.get();
+    return 0;
+}

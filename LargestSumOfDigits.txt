@@ -1,0 +1,51 @@
+#include<iostream>
+
+
+using namespace std;
+
+/*Create a function that takes a number n as an argument and returns the largest integer that is less than or equal to n and has the highest digit sum .*/
+
+int LargetsSumOfDigits(int);
+int SumaCifara(int);
+
+int main()
+{
+	int n;
+	do
+	{
+		cout << "Unesite broj: ";
+		cin >> n;
+	} while (n<10);
+
+	cout << "Broj koji ima najvecu sumu cifara u opsegu je: " << LargetsSumOfDigits(n) << endl;
+
+	cin.get();
+	return 0;
+}
+
+int LargetsSumOfDigits(int broj)
+{
+	int temp=0,tempCif=0;
+	for (int i = 1; i <= broj; i++)
+	{
+		if (SumaCifara(i) >= tempCif)
+		{
+			tempCif = SumaCifara(i);
+			temp = i;
+		}
+	}
+	return temp;
+
+
+}
+
+int SumaCifara(int broj)
+{
+	int suma = 0;
+	while (broj)
+	{
+		suma += (broj % 10);
+		broj /= 10;
+	}
+	return suma;
+}
