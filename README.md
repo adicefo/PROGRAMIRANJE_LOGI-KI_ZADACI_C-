@@ -1,2 +1,2 @@
-# PROGRAMIRANJE_LOGI-KI_ZADACI_C-
+# PROGRAMIRANJE_LOGICKI_ZADACI
 Competative programming problems used for practicing
